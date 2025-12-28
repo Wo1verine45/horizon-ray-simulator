@@ -39,6 +39,8 @@ O motor deverá produzir, para cada cenário:
 * Pontos de inflexão dos raios
 * Curvatura média e local
 * Erro numérico acumulado
+* Fração visível do objeto (f_visível)
+* Altura mínima e máxima visível do objeto
 
 Essas métricas permitem comparação direta entre modelos.
 
@@ -61,6 +63,7 @@ Resultados esperados:
 
 * Horizonte puramente geométrico
 * Nenhuma visibilidade além do limite geométrico
+* Objetos além do horizonte geométrico apresentam visibilidade parcial ou nula, conforme previsto pela geometria esférica.
 
 ### 4.2 Refração Padrão (Atmosfera ISA)
 
@@ -98,6 +101,7 @@ Resultados esperados:
 Objetivo:
 
 * Detectar miragens superiores/inferiores
+* Avaliar o impacto da refração extrema na recuperação parcial ou total da visibilidade de objetos ocultos geometricamente.
 
 Resultados esperados:
 

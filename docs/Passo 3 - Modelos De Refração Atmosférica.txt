@@ -14,6 +14,8 @@ O objetivo é estabelecer uma progressão clara de complexidade, permitindo:
 * Comparação com resultados clássicos da literatura
 * Transição controlada para modelos de nível científico avançado
 
+Além de influenciar a posição aparente do horizonte, os modelos de refração atmosférica definidos neste passo impactam diretamente a visibilidade parcial ou total de objetos distantes, alterando quais trajetórias ópticas conectam diferentes alturas do objeto ao observador.
+
 ---
 
 ## 2. Fundamentos Físicos da Refração Atmosférica
@@ -257,6 +259,8 @@ A partir deste ponto:
 * Fenômenos ópticos complexos tornam-se possíveis
 
 Os passos seguintes tratarão da validação avançada e da visualização científica.
+
+Esses efeitos refrativos serão utilizados, nos passos seguintes, para determinar a fração visível de objetos físicos sob diferentes condições atmosféricas.
 
 ---
 

@@ -1,0 +1,459 @@
+Passo 7 – Modelo Formal de Cálculo de Visibilidade
+Modelo Formal de Cálculo da Visibilidade de Objetos
+1. Objetivo do Documento
+
+Este documento tem como objetivo definir, de forma formal, matemática e fisicamente consistente, o método utilizado pelo simulador para calcular quanto de um objeto físico é visível para um observador, dadas as seguintes condições configuráveis:
+
+Geometria da Terra (curva ou plana)
+
+Altura do observador
+
+Distância e altura do objeto
+
+Modelo atmosférico selecionado
+
+Nível de complexidade da refração
+
+Este documento não define arquitetura de software, mas sim o modelo físico-matemático que fundamenta a funcionalidade principal do simulador.
+
+2. Princípio Físico Fundamental
+
+O cálculo de visibilidade baseia-se no princípio da reversibilidade dos raios luminosos, segundo o qual:
+
+Se um raio de luz pode se propagar do ponto A ao ponto B seguindo um determinado caminho óptico, então um raio emitido de B para A seguirá exatamente o mesmo trajeto, em sentido inverso.
+
+Consequentemente, o problema de visibilidade pode ser tratado de forma equivalente por:
+
+Raios emitidos do observador em direção ao objeto
+ou
+
+Raios emitidos do objeto em direção ao observador
+
+Por conveniência computacional e conceitual, o simulador adota a emissão de raios a partir do observador, sem perda de generalidade física.
+
+3. Definição Formal de Visibilidade
+3.1 Definição Geral
+
+Um ponto de um objeto é considerado visível se existir ao menos um raio óptico fisicamente válido que:
+
+Parte do observador
+
+Propaga-se segundo o modelo físico selecionado
+
+Intersecta esse ponto do objeto
+
+Sem ser bloqueado pela superfície da Terra
+
+3.2 Visibilidade Parcial
+
+Um objeto pode ser:
+
+Totalmente visível
+
+Parcialmente visível
+
+Totalmente oculto
+
+A fração visível do objeto é definida como:
+
+𝑉
+=
+𝐻
+𝑣
+𝑖
+𝑠
+ı
+ˊ
+𝑣
+𝑒
+𝑙
+𝐻
+𝑡
+𝑜
+𝑡
+𝑎
+𝑙
+V=
+H
+total
+	​
+
+H
+vis
+ı
+ˊ
+vel
+	​
+
+	​
+
+
+onde:
+
+𝐻
+𝑣
+𝑖
+𝑠
+ı
+ˊ
+𝑣
+𝑒
+𝑙
+H
+vis
+ı
+ˊ
+vel
+	​
+
+ é a extensão vertical visível do objeto
+
+𝐻
+𝑡
+𝑜
+𝑡
+𝑎
+𝑙
+H
+total
+	​
+
+ é a altura total do objeto
+
+4. Modelagem Geométrica do Objeto
+4.1 Representação do Objeto
+
+O objeto é modelado como um segmento vertical localizado a uma distância horizontal fixa em relação ao observador.
+
+Parâmetros do objeto:
+
+Distância horizontal ao observador: 
+𝑑
+𝑜
+𝑏
+𝑗
+d
+obj
+	​
+
+
+Altura da base em relação à superfície: 
+ℎ
+𝑏
+𝑎
+𝑠
+𝑒
+h
+base
+	​
+
+
+Altura total do objeto: 
+𝐻
+𝑜
+𝑏
+𝑗
+H
+obj
+	​
+
+
+O objeto ocupa o intervalo vertical:
+
+[
+ℎ
+𝑏
+𝑎
+𝑠
+𝑒
+,
+ 
+ℎ
+𝑏
+𝑎
+𝑠
+𝑒
++
+𝐻
+𝑜
+𝑏
+𝑗
+]
+[h
+base
+	​
+
+, h
+base
+	​
+
++H
+obj
+	​
+
+]
+4.2 Discretização Vertical
+
+Para o cálculo da visibilidade, o objeto é discretizado em 
+𝑁
+N pontos verticais igualmente espaçados:
+
+𝑧
+𝑖
+=
+ℎ
+𝑏
+𝑎
+𝑠
+𝑒
++
+𝑖
+⋅
+Δ
+𝑧
+com
+𝑖
+=
+0
+,
+1
+,
+.
+.
+.
+,
+𝑁
+z
+i
+	​
+
+=h
+base
+	​
+
++i⋅Δzcomi=0,1,...,N
+
+Cada ponto 
+𝑧
+𝑖
+z
+i
+	​
+
+ é avaliado individualmente quanto à sua visibilidade.
+
+5. Emissão e Traçado de Raios
+5.1 Emissão Angular
+
+O observador emite múltiplos raios em diferentes ângulos verticais 
+𝜃
+θ, cobrindo um intervalo suficientemente amplo para interceptar todo o objeto:
+
+𝜃
+∈
+[
+𝜃
+𝑚
+𝑖
+𝑛
+,
+ 
+𝜃
+𝑚
+𝑎
+𝑥
+]
+θ∈[θ
+min
+	​
+
+, θ
+max
+	​
+
+]
+
+A resolução angular é configurável e controla a precisão do cálculo.
+
+5.2 Propagação dos Raios
+
+Cada raio é propagado de acordo com o modelo físico selecionado:
+
+Sem refração: trajetórias retilíneas
+
+Refração média: curvatura constante equivalente (7/6 R)
+
+Gradiente contínuo: integração diferencial
+
+Atmosfera em camadas: integração numérica por passos
+
+5.3 Condições de Interrupção
+
+A propagação de um raio é interrompida se:
+
+O raio intersectar a superfície da Terra
+
+O raio ultrapassar a distância máxima de interesse
+
+O raio atingir o objeto
+
+6. Teste de Interseção com o Objeto
+
+Um ponto 
+𝑧
+𝑖
+z
+i
+	​
+
+ do objeto é considerado visível se:
+
+Existe ao menos um raio cuja trajetória intersecta o plano vertical do objeto
+
+A interseção ocorre dentro do intervalo vertical correspondente a 
+𝑧
+𝑖
+z
+i
+	​
+
+
+O raio não foi bloqueado antes pela superfície
+
+Esse teste é puramente geométrico e independe da origem do raio.
+
+7. Cálculo da Porção Visível
+
+Após avaliar todos os pontos discretizados do objeto:
+
+𝐻
+𝑣
+𝑖
+𝑠
+ı
+ˊ
+𝑣
+𝑒
+𝑙
+=
+∑
+𝑖
+=
+0
+𝑁
+Δ
+𝑧
+⋅
+1
+𝑣
+𝑖
+𝑠
+ı
+ˊ
+𝑣
+𝑒
+𝑙
+(
+𝑧
+𝑖
+)
+H
+vis
+ı
+ˊ
+vel
+	​
+
+=
+i=0
+∑
+N
+	​
+
+Δz⋅1
+vis
+ı
+ˊ
+vel
+	​
+
+(z
+i
+	​
+
+)
+
+onde 
+1
+𝑣
+𝑖
+𝑠
+ı
+ˊ
+𝑣
+𝑒
+𝑙
+1
+vis
+ı
+ˊ
+vel
+	​
+
+ é a função indicadora de visibilidade.
+
+A fração visível 
+𝑉
+V é então calculada conforme definido na seção 3.2.
+
+8. Comparação Entre Modelos
+
+O mesmo procedimento de cálculo de visibilidade será aplicado de forma idêntica para:
+
+Terra curva vs. Terra plana
+
+Diferentes modelos de refração
+
+Diferentes perfis atmosféricos
+
+Garantindo que qualquer diferença observada seja consequência exclusiva das hipóteses físicas adotadas.
+
+9. Casos Limite e Consistência Física
+
+O modelo deve satisfazer os seguintes casos limite:
+
+Sem refração + Terra plana → visibilidade puramente geométrica
+
+Refração crescente → aumento progressivo da porção visível
+
+Inversão térmica → possibilidade de múltiplas interseções e miragens
+
+Nenhum tratamento especial será aplicado a esses casos; todos devem emergir naturalmente do modelo.
+
+10. Relação com os Documentos Anteriores
+
+Este documento:
+
+Depende diretamente do Passo 0 – Escopo Físico
+
+Utiliza o núcleo geométrico definido nos Passos 1 a 3
+
+Não altera a arquitetura definida no Passo 6
+
+Formaliza a funcionalidade central do simulador
+
+11. Filosofia do Modelo de Visibilidade
+
+O cálculo de visibilidade neste projeto é:
+
+Fisicamente reversível
+
+Geometricamente explícito
+
+Numericamente controlável
+
+Cientificamente auditável
+
+O simulador não decide o que é visível; a física decide.
+
+Fim do Documento – Passo 7: Modelo Formal de Cálculo de Visibilidade

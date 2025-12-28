@@ -159,9 +159,163 @@ No modelo esférico, o ângulo é sempre definido **em relação à horizontal l
 
 ---
 
-## 6. Representação dos Raios de Luz (Sem Refração)
+6. Objetos Físicos Distantes
+6.1 Definição Geométrica do Objeto
 
-### 6.1 Definição de um Raio
+Um objeto físico distante será representado, no plano (x, z), como um segmento vertical definido por:
+
+Posição horizontal fixa: ( x = x_obj )
+
+Altura da base: ( h_base )
+
+Altura do topo: ( h_top )
+
+No sistema de coordenadas:
+
+Terra plana:
+
+z_base = h_base
+z_top  = h_top
+
+
+Terra esférica:
+
+z_base = função implícita da superfície + h_base
+z_top  = função implícita da superfície + h_top
+📌 O objeto é assumido perpendicular à superfície local.
+
+6.2 Espaço Visível do Objeto
+
+Define-se como potencialmente visível qualquer ponto do objeto que:
+
+Seja interceptado por ao menos um raio
+
+Antes da interseção desse raio com a superfície da Terra
+
+A visibilidade não é assumida a priori — ela emerge do traçado dos raios.
+
+6.3 Representação Angular da Visibilidade
+
+Cada ponto do objeto corresponde a um ângulo aparente no observador:
+
+O conjunto de ângulos para os quais raios interceptam o objeto define:
+
+O intervalo angular visível do objeto
+
+A porção visível é dada pela interseção entre:
+
+Intervalo angular do objeto
+
+Intervalo angular não bloqueado pela superfície
+
+6.4 Cálculo da Fração Visível (Definição Geométrica)
+
+A fração visível do objeto é definida como:
+
+𝑓
+𝑣
+𝑖
+𝑠
+ı
+ˊ
+𝑣
+𝑒
+𝑙
+=
+ℎ
+𝑣
+𝑖
+𝑠
+ı
+ˊ
+𝑣
+𝑒
+𝑙
+ℎ
+𝑡
+𝑜
+𝑡
+𝑎
+𝑙
+f
+vis
+ı
+ˊ
+vel
+	​
+
+=
+h
+total
+	​
+
+h
+vis
+ı
+ˊ
+vel
+	​
+
+	​
+
+
+onde:
+
+ℎ
+𝑡
+𝑜
+𝑡
+𝑎
+𝑙
+=
+ℎ
+𝑡
+𝑜
+𝑝
+−
+ℎ
+𝑏
+𝑎
+𝑠
+𝑒
+h
+total
+	​
+
+=h
+top
+	​
+
+−h
+base
+	​
+
+
+ℎ
+𝑣
+𝑖
+𝑠
+ı
+ˊ
+𝑣
+𝑒
+𝑙
+h
+vis
+ı
+ˊ
+vel
+	​
+
+ é o comprimento vertical do objeto atingido por raios válidos
+
+📌 Esse cálculo é puramente geométrico neste passo (sem refração).
+
+---
+
+## 7. Representação dos Raios de Luz (Sem Refração)
+
+### 7.1 Definição de um Raio
 
 Um raio de luz é definido por:
 
@@ -176,7 +330,7 @@ O vetor direção unitário é dado por:
 
 ---
 
-### 6.2 Equação Paramétrica do Raio
+### 7.2 Equação Paramétrica do Raio
 
 A trajetória do raio, na ausência de refração, é dada por:
 
@@ -191,9 +345,9 @@ onde ( s ) é o parâmetro de comprimento de arco.
 
 ---
 
-## 7. Interseção com a Superfície
+## 8. Interseção com a Superfície
 
-### 7.1 Terra Plana
+### 8.1 Terra Plana
 
 A interseção ocorre quando:
 
@@ -203,7 +357,7 @@ z(s) = 0
 
 ---
 
-### 7.2 Terra Esférica
+### 8.2 Terra Esférica
 
 A interseção ocorre quando:
 
@@ -215,9 +369,9 @@ A menor solução positiva de ( s ) define o ponto de impacto do raio com a supe
 
 ---
 
-## 8. Horizonte Geométrico
+## 9. Horizonte Geométrico
 
-### 8.1 Definição
+### 9.1 Definição
 
 O horizonte geométrico é definido como o limite entre raios que:
 
@@ -226,7 +380,7 @@ O horizonte geométrico é definido como o limite entre raios que:
 
 ---
 
-### 8.2 Condição de Tangência (Terra Esférica)
+### 9.2 Condição de Tangência (Terra Esférica)
 
 O horizonte ocorre quando o raio é tangente à esfera:
 
@@ -236,9 +390,11 @@ O horizonte ocorre quando o raio é tangente à esfera:
 
 no ponto de tangência.
 
+O horizonte geométrico define o limite a partir do qual objetos passam a sofrer ocultação parcial ou total. A visibilidade de um objeto distante será determinada comparando sua extensão vertical com a posição angular do horizonte.
+
 ---
 
-## 9. Critérios de Validação do Passo 1
+## 10. Critérios de Validação do Passo 1
 
 O Passo 1 será considerado concluído quando:
 
@@ -249,7 +405,7 @@ O Passo 1 será considerado concluído quando:
 
 ---
 
-## 10. Papel do Passo 1 no Projeto
+## 11. Papel do Passo 1 no Projeto
 
 Este documento estabelece a base matemática sobre a qual:
 

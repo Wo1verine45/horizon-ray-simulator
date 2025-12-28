@@ -65,7 +65,8 @@ src/
  │   │   └── RefractiveIndex.ts
  │   └── physics/
  │       ├── Horizon.ts
- │       └── Visibility.ts
+ │       ├── Visibility.ts ← cálculo da fração visível de objetos
+ │       └── ObjectModel.ts  ← (opcional) geometria de objetos verticais
  ├── numerics/
  │   ├── Integrator.ts
  │   ├── RungeKutta.ts
@@ -116,6 +117,15 @@ src/
 * Analisa trajetórias
 * Identifica padrões emergentes
 
+### Visibility
+
+* Recebe resultados do traçado de raios
+* Determina interseções raio–objeto
+* Calcula:
+ * altura visível
+ * fração visível
+ * múltiplas imagens
+
 ---
 
 ## 6. Roadmap de Implementação
@@ -126,6 +136,7 @@ src/
 * Sistema de coordenadas 2D
 * Ray em vácuo (n constante)
 * Horizonte geométrico
+* Visibilidade puramente geométrica de objetos (sem refração)
 
 Critério de avanço:
 

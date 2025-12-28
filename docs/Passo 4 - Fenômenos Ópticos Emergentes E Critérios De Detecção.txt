@@ -10,6 +10,8 @@ O foco não é "criar efeitos", mas **identificar padrões físicos objetivos** 
 * Comparação entre modelos (Terra curva vs. plana)
 * Análise quantitativa
 
+Muitos desses fenômenos afetam diretamente a porção visível de objetos distantes, sendo detectáveis por alterações na conectividade óptica entre o objeto e o observador.
+
 ---
 
 ## 2. Princípio Fundamental
@@ -144,6 +146,8 @@ Métricas:
 * Separação angular entre imagens
 * Ordem das imagens
 
+A ocorrência de múltiplas imagens implica que diferentes partes do objeto podem contribuir simultaneamente para a visibilidade, inclusive de regiões geometricamente ocultas.
+
 ---
 
 ## 8. Compressão e Alongamento Vertical
@@ -159,6 +163,8 @@ Critério:
 Métrica:
 
 * dθ/dz_objeto variável
+
+Esses efeitos alteram a correspondência entre altura física do objeto e ângulo aparente, afetando diretamente a estimativa da fração visível e da forma aparente do objeto.
 
 ---
 

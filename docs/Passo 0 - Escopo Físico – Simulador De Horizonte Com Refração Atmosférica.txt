@@ -14,6 +14,10 @@ O objetivo deste projeto é desenvolver um simulador físico-computacional que r
 
 O simulador deverá permitir ao usuário selecionar **diferentes níveis de complexidade do modelo**, desde aproximações simples até modelos avançados compatíveis com literatura científica, possibilitando comparações diretas entre cenários.
 
+Além da simulação do horizonte em si, o objetivo central do projeto é calcular a visibilidade parcial ou total de objetos físicos distantes, determinando qual fração de um objeto estendido (por exemplo, navios, torres ou relevos) estaria visível ao observador sob diferentes condições geométricas e atmosféricas.
+
+O horizonte passa a ser tratado como um caso limite desse problema geral, correspondente à visibilidade de um objeto situado no ponto de tangência geométrica entre a linha de visada e a superfície.
+
 ---
 
 ## 2. Escopo Físico Geral
@@ -41,6 +45,20 @@ A propagação da luz será tratada sob o regime de **óptica geométrica**, com
 * Não há absorção
 
 Cada raio é descrito por sua posição e direção instantâneas, evoluindo continuamente ao longo do espaço.
+
+---
+
+### 2.3 Objetos Observáveis
+
+O simulador deverá permitir a inclusão de **objetos físicos estendidos**, posicionados sobre a superfície da Terra, cuja visibilidade será avaliada a partir da propagação dos raios luminosos.
+
+Cada objeto observável será caracterizado, no mínimo, por:
+
+* Posição horizontal relativa ao observador
+* Altura total acima da superfície local
+* Base rigidamente conectada à superfície da Terra (curva ou plana)
+
+A visibilidade de um objeto será definida como a **fração de sua extensão vertical** que pode ser alcançada por ao menos um raio luminoso proveniente do observador, considerando ocultação geométrica e/ou efeitos ópticos atmosféricos.
 
 ---
 
@@ -76,6 +94,9 @@ O observador será definido pelos seguintes parâmetros:
 * Olhar direcionado ao plano do corte vertical
 
 O observador é considerado pontual e não possui campo de visão angular neste estágio (os raios serão emitidos individualmente).
+
+O observador poderá emitir múltiplos raios em diferentes ângulos verticais, permitindo a avaliação da interseção desses raios com objetos físicos distantes e, consequentemente, o cálculo da porção visível de cada objeto.
+Embora, fisicamente, a luz se propague do objeto até o observador, o simulador utilizará o princípio da reversibilidade dos raios ópticos para lançar raios a partir da posição do observador, permitindo identificar quais trajetórias seriam fisicamente capazes de conectar o objeto ao observador. Essa abordagem viabiliza o cálculo da porção visível de objetos distantes de forma eficiente e fisicamente consistente.
 
 ---
 
@@ -149,6 +170,9 @@ O simulador deverá ser capaz de reproduzir, quando as condições físicas fore
 * Ocultação parcial ou reaparecimento de objetos
 * **Miragens inferiores**
 * **Miragens superiores**
+* Variação da fração visível de objetos com a distância
+* Elevação ou ocultação aparente da base de objetos distantes
+* Alongamento ou compressão vertical da imagem de objetos
 
 📌 Esses fenômenos devem emergir **naturalmente do modelo físico**, sem regras condicionais específicas.
 
@@ -177,6 +201,7 @@ O simulador será considerado fisicamente consistente se:
 * Produzir trajetórias de raios contínuas e estáveis
 * Apresentar miragens apenas sob condições atmosféricas compatíveis
 * Permitir comparação honesta entre Terra curva e Terra plana sob os mesmos parâmetros
+* Produzir valores de visibilidade parcial de objetos coerentes com registros fotográficos reais e cenários documentados na literatura
 
 ---
 

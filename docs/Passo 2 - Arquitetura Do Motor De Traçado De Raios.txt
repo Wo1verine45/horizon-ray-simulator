@@ -193,6 +193,49 @@ Esses critérios evitam loops infinitos.
 
 ---
 
+9. Interseção com Objetos Físicos
+9.1 Conceito de Interseção com Objetos
+
+Além da interseção com a superfície, o motor deverá ser capaz de detectar interseções entre um raio e objetos físicos definidos no ambiente.
+
+A detecção de interseção com objetos:
+
+Não altera a trajetória do raio
+
+Serve exclusivamente para análise de visibilidade
+
+9.2 Interface de Interseção com Objetos
+
+O ambiente deverá fornecer uma função abstrata adicional:
+
+object_hit = object_intersection(ray)
+
+Onde:
+
+object_hit contém:
+
+Identificador do objeto
+
+Altura do ponto interceptado
+
+Comprimento de arco no ponto de interseção
+
+📌 O motor não interpreta o significado da interseção — apenas a registra.
+
+9.3 Prioridade de Interseções
+
+Para cada raio, deve ser considerada apenas a primeira interseção válida, obedecendo a prioridade:
+
+Interseção com objeto
+
+Interseção com a superfície
+
+Nenhuma interseção (raio perdido)
+
+Isso garante coerência com o conceito físico de oclusão.
+
+---
+
 ## 9. Estrutura de Dados de Saída
 
 O resultado do traçado de um raio será:
@@ -206,6 +249,9 @@ Essa estrutura permite:
 * Visualização posterior
 * Análise científica
 * Comparação entre modelos
+Informação opcional de interseção com objetos:
+
+(x_i, z_i, θ_i, s_i, object_id, object_height)
 
 ---
 
@@ -225,6 +271,34 @@ O motor será considerado correto se:
 Este motor é o **núcleo computacional** do simulador. Todas as camadas superiores (atmosfera realista, miragens, visualização) dependem diretamente da robustez desta arquitetura.
 
 Uma vez validado, o motor **não deverá ser modificado**, apenas estendido por novos modelos físicos.
+
+---
+
+10. Avaliação da Visibilidade de Objetos
+
+A avaliação da visibilidade será realizada em uma camada lógica superior ao motor de traçado, utilizando os resultados dos raios.
+
+O processo consiste em:
+
+Emitir múltiplos raios a partir do observador, cobrindo um intervalo angular definido
+
+Registrar, para cada raio:
+
+Se houve interseção com objeto
+
+A altura do objeto atingida
+
+Reconstruir o conjunto de alturas do objeto alcançadas por raios válidos
+
+Determinar:
+
+Parte visível
+
+Parte oculta
+
+Fração visível do objeto
+
+📌 O motor apenas fornece dados; a interpretação é responsabilidade do módulo de visibilidade.
 
 ---
 

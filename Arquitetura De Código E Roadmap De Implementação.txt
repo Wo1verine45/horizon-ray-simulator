@@ -1,0 +1,194 @@
+# Passo 6 – Arquitetura de Código e Roadmap de Implementação
+
+## 1. Objetivo do Documento
+
+Este documento traduz toda a base conceitual e física definida nos Passos 0 a 5 em uma **arquitetura de software concreta**, estabelecendo:
+
+* Linguagens e tecnologias recomendadas
+* Estrutura de pastas e módulos
+* Principais classes e responsabilidades
+* Ordem incremental de implementação
+* Estratégia de testes desde o início
+
+O objetivo é garantir que a implementação seja **progressiva, validável e cientificamente controlada**, evitando retrabalho e acoplamento indevido.
+
+---
+
+## 2. Escolha de Tecnologias
+
+### 2.1 Linguagem Base
+
+Recomendação principal:
+
+* **TypeScript (Web)**
+
+Justificativas:
+
+* Execução direta no navegador (site)
+* Tipagem forte para evitar erros físicos
+* Integração natural com visualização
+* Possibilidade futura de WebAssembly
+
+Alternativas compatíveis:
+
+* Python (protótipo científico offline)
+* Rust + WASM (núcleo numérico avançado)
+
+---
+
+## 3. Arquitetura Geral do Sistema
+
+Separação clara em camadas:
+
+1. **Core Físico (determinístico)**
+2. **Camada Numérica (integração)**
+3. **Camada de Diagnóstico**
+4. **Camada de Visualização**
+5. **Interface do Usuário**
+
+Nenhuma camada superior pode alterar resultados físicos.
+
+---
+
+## 4. Estrutura de Pastas Sugerida
+
+```
+src/
+ ├── core/
+ │   ├── geometry/
+ │   │   ├── EarthModel.ts
+ │   │   ├── FlatModel.ts
+ │   │   └── Coordinates.ts
+ │   ├── optics/
+ │   │   ├── Ray.ts
+ │   │   ├── Medium.ts
+ │   │   └── RefractiveIndex.ts
+ │   └── physics/
+ │       ├── Horizon.ts
+ │       └── Visibility.ts
+ ├── numerics/
+ │   ├── Integrator.ts
+ │   ├── RungeKutta.ts
+ │   └── ErrorControl.ts
+ ├── diagnostics/
+ │   ├── MirageDetector.ts
+ │   ├── HorizonShift.ts
+ │   └── Metrics.ts
+ ├── visualization/
+ │   ├── RayPlot.ts
+ │   └── SceneView.ts
+ ├── ui/
+ │   ├── Controls.ts
+ │   └── Presets.ts
+ └── tests/
+     ├── geometry.test.ts
+     ├── optics.test.ts
+     └── numerics.test.ts
+```
+
+---
+
+## 5. Classes Principais e Responsabilidades
+
+### EarthModel / FlatModel
+
+* Define geometria
+* Calcula interseções
+* Fornece curvatura local
+
+### Ray
+
+* Estado do raio (posição, direção)
+* Histórico de trajetória
+
+### RefractiveIndex
+
+* Fornece n(z)
+* Pode ser contínuo ou estratificado
+
+### Integrator
+
+* Resolve equações diferenciais
+* Não conhece física específica
+
+### MirageDetector
+
+* Analisa trajetórias
+* Identifica padrões emergentes
+
+---
+
+## 6. Roadmap de Implementação
+
+### Fase A – Núcleo Geométrico (MVP Científico)
+
+* Implementar EarthModel
+* Sistema de coordenadas 2D
+* Ray em vácuo (n constante)
+* Horizonte geométrico
+
+Critério de avanço:
+
+* Resultados batem com fórmulas analíticas
+
+---
+
+### Fase B – Refração Média
+
+* Perfil n(z) simples
+* Integração Runge-Kutta
+* Horizonte óptico
+
+Critério de avanço:
+
+* Δd e Δθ coerentes com literatura
+
+---
+
+### Fase C – Atmosfera Estratificada
+
+* Camadas atmosféricas
+* Inversões térmicas
+* Miragens emergentes
+
+Critério de avanço:
+
+* Fenômenos detectados automaticamente
+
+---
+
+### Fase D – Comparações e Diagnóstico
+
+* Terra curva vs. plana
+* Métricas consolidadas
+* Cenários do Passo 5
+
+---
+
+### Fase E – Interface e Visualização
+
+* Controles de complexidade
+* Presets científicos
+* Visualização didática
+
+---
+
+## 7. Estratégia de Testes
+
+* Testes unitários por módulo
+* Testes de regressão física
+* Comparação entre versões
+
+Nenhuma feature visual deve quebrar testes físicos.
+
+---
+
+## 8. Resultado Esperado do Passo 6
+
+Ao final deste passo, o projeto possui:
+
+* Arquitetura clara e extensível
+* Plano incremental de implementação
+* Base sólida para iniciar o código
+
+Este documento marca a **transição oficial da fase científica para a fase de engenharia** do simulador.

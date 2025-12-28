@@ -1,0 +1,218 @@
+# Passo 4 – Fenômenos Ópticos Emergentes e Critérios de Detecção
+
+## 1. Objetivo do Documento
+
+Este documento define **quais fenômenos ópticos podem emergir naturalmente** do motor de traçado de raios desenvolvido nos passos anteriores e estabelece **critérios formais, matemáticos e geométricos** para sua detecção automática na simulação.
+
+O foco não é "criar efeitos", mas **identificar padrões físicos objetivos** que caracterizam cada fenômeno, permitindo:
+
+* Validação científica
+* Comparação entre modelos (Terra curva vs. plana)
+* Análise quantitativa
+
+---
+
+## 2. Princípio Fundamental
+
+Todos os fenômenos listados aqui devem emergir exclusivamente de:
+
+* Geometria do modelo
+* Perfil do índice de refração n(z)
+* Integração numérica das trajetórias dos raios
+
+Nenhum fenômeno será ativado por flags ou condições artificiais.
+
+---
+
+## 3. Horizonte Geométrico vs. Horizonte Óptico
+
+### 3.1 Horizonte Geométrico
+
+Definição:
+
+* Limite de visada imposto exclusivamente pela curvatura da superfície
+
+Critério:
+
+* Último ponto de interseção tangencial entre o raio e a superfície
+* Depende apenas de R (raio da Terra) e h_obs (altura do observador)
+
+### 3.2 Horizonte Óptico
+
+Definição:
+
+* Limite aparente de visada considerando refração atmosférica
+
+Critérios de detecção:
+
+* Raio com curvatura descendente suficiente para manter visada além do horizonte geométrico
+* Distância observável maior que o limite geométrico
+
+Métrica:
+
+* Δd = d_óptico − d_geométrico
+
+---
+
+## 4. Elevação Aparente do Horizonte
+
+Fenômeno:
+
+* Deslocamento angular do horizonte em relação à posição geométrica
+
+Critério:
+
+* Ângulo final do raio ao atingir o observador ≠ ângulo geométrico esperado
+
+Métrica:
+
+* Δθ_horizonte = θ_aparente − θ_geométrico
+
+---
+
+## 5. Miragem Inferior
+
+### 5.1 Descrição Física
+
+Ocorre quando:
+
+* Camada de ar quente (menos densa) está próxima à superfície
+* dn/dz > 0 localmente
+
+Resultado:
+
+* Raios se curvam para cima
+* Formação de imagens invertidas abaixo do objeto
+
+### 5.2 Critérios de Detecção
+
+* Raio apresenta ponto de inflexão vertical
+* Raio não intercepta a superfície, mas retorna ao observador
+* Ângulo de chegada corresponde a imagem invertida
+
+Indicadores:
+
+* Curvatura positiva local
+* Múltiplas soluções para o mesmo objeto
+
+---
+
+## 6. Miragem Superior
+
+### 6.1 Descrição Física
+
+Ocorre quando:
+
+* Camada fria (mais densa) está próxima à superfície
+* dn/dz < 0 acentuado
+
+Resultado:
+
+* Raios se curvam para baixo
+* Objetos abaixo do horizonte geométrico tornam-se visíveis
+
+### 6.2 Critérios de Detecção
+
+* Raio tangencia a superfície sem interceptá-la
+* Raio emerge de regiões geometricamente ocultas
+
+Indicadores:
+
+* Curvatura descendente persistente
+* Distância observável maior que o limite geométrico
+
+---
+
+## 7. Múltiplas Imagens
+
+Fenômeno:
+
+* Um único objeto gera múltiplos raios válidos chegando ao observador
+
+Critério:
+
+* Mais de uma trajetória distinta conecta objeto → observador
+
+Classificação:
+
+* Imagens diretas
+* Imagens invertidas
+* Imagens comprimidas ou esticadas
+
+Métricas:
+
+* Separação angular entre imagens
+* Ordem das imagens
+
+---
+
+## 8. Compressão e Alongamento Vertical
+
+Fenômeno:
+
+* Distorção da escala vertical de objetos próximos ao horizonte
+
+Critério:
+
+* Gradiente não linear de ângulo de chegada vs. altura do objeto
+
+Métrica:
+
+* dθ/dz_objeto variável
+
+---
+
+## 9. Caminhos Críticos e Raios Aprisionados
+
+Fenômeno:
+
+* Raios quase horizontais que percorrem longas distâncias
+
+Critério:
+
+* Ângulo inicial próximo ao crítico
+* Curvatura local equilibrando a curvatura da Terra
+
+Aplicação:
+
+* Detecção de ductos atmosféricos
+
+---
+
+## 10. Comparação Terra Curva vs. Terra Plana
+
+Cada fenômeno deve ser avaliado em ambos os modelos:
+
+* Existência ou não do fenômeno
+* Diferenças quantitativas
+* Condições extremas necessárias
+
+Objetivo:
+
+* Separar efeitos puramente refrativos de efeitos geométricos
+
+---
+
+## 11. Saídas do Motor para Detecção
+
+O motor deve expor, no mínimo:
+
+* Trajetória completa do raio
+* Curvatura local ao longo do caminho
+* Pontos de inflexão
+* Ângulo de chegada
+* Origem do raio
+
+Esses dados alimentam os algoritmos de detecção descritos acima.
+
+---
+
+## 12. Resultado Esperado do Passo 4
+
+Ao final deste passo, o projeto possui:
+
+* Definições objetivas de fenômenos ópticos
+* Critérios matemáticos reprodutíveis
+* Base sólida para validação e visualização científica
+
+Este documento prepara diretamente o **Passo 5 – Validação Científica e Cenários de Teste**.

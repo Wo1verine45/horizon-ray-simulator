@@ -1,0 +1,263 @@
+# Documento – Passo 3
+
+## Modelos de Refração Atmosférica
+
+---
+
+## 1. Objetivo do Passo 3
+
+Este documento define formalmente os **modelos físicos e matemáticos de refração atmosférica** que serão utilizados pelo simulador, bem como sua integração ao Motor de Traçado de Raios definido no Passo 2.
+
+O objetivo é estabelecer uma progressão clara de complexidade, permitindo:
+
+* Validação incremental do motor
+* Comparação com resultados clássicos da literatura
+* Transição controlada para modelos de nível científico avançado
+
+---
+
+## 2. Fundamentos Físicos da Refração Atmosférica
+
+### 2.1 Refração em Meios Não Homogêneos
+
+A atmosfera terrestre é um meio **não homogêneo**, no qual o índice de refração varia continuamente com a altura. Como consequência:
+
+* A luz não se propaga em linha reta
+* A trajetória do raio é continuamente curvada
+
+Esse comportamento é descrito pela forma contínua da Lei de Snell.
+
+---
+
+### 2.2 Invariante Óptico
+
+Em um meio estratificado verticalmente, vale a relação:
+
+[
+n(h) \sin \alpha(h) = C
+]
+
+onde:
+
+* ( n(h) ) é o índice de refração local
+* ( \alpha(h) ) é o ângulo do raio em relação à vertical local
+* ( C ) é uma constante ao longo do trajeto
+
+Essa relação fundamenta os modelos avançados.
+
+---
+
+## 3. Relação entre Índice de Refração e Atmosfera
+
+### 3.1 Índice de Refração do Ar
+
+Para o ar atmosférico:
+
+[
+n \approx 1 + (n - 1)
+]
+
+onde ( n - 1 \ll 1 ).
+
+O índice de refração é aproximadamente proporcional à **densidade do ar**:
+
+[
+n(h) - 1 = k \cdot \rho(h)
+]
+
+onde ( k ) é uma constante empírica.
+
+---
+
+### 3.2 Densidade do Ar
+
+A densidade do ar é função de:
+
+* Pressão
+* Temperatura
+
+Segundo a equação de estado dos gases ideais:
+
+[
+\rho = \frac{P}{R_{esp} T}
+]
+
+---
+
+## 4. Modelo 0 – Ausência de Refração
+
+### 4.1 Descrição
+
+Neste modelo:
+
+* O índice de refração é constante
+* Não há variação angular do raio
+
+---
+
+### 4.2 Equações
+
+[
+\frac{d\theta}{ds} = 0
+]
+
+Este modelo serve exclusivamente para:
+
+* Validação geométrica
+* Comparação direta com modelos refrativos
+
+---
+
+## 5. Modelo 1 – Refração Média (Raio Efetivo 7/6 R)
+
+### 5.1 Descrição Física
+
+Este modelo representa a refração atmosférica média por meio de uma curvatura constante do raio, equivalente a considerar a Terra com um raio efetivo maior.
+
+---
+
+### 5.2 Formulação
+
+Define-se:
+
+[
+R_{efetivo} = \frac{7}{6} R
+]
+
+A variação angular é constante:
+
+[
+\frac{d\theta}{ds} = k = \frac{1}{R_{efetivo}} - \frac{1}{R}
+]
+
+---
+
+### 5.3 Papel no Projeto
+
+* Modelo de referência na literatura
+* Ferramenta de validação do motor
+
+---
+
+## 6. Modelo 2 – Gradiente Linear do Índice de Refração
+
+### 6.1 Descrição
+
+Neste modelo, o índice de refração varia linearmente com a altura:
+
+[
+n(h) = n_0 + a h
+]
+
+onde:
+
+* ( a < 0 )
+
+---
+
+### 6.2 Equação Diferencial do Raio
+
+A curvatura do raio é dada por:
+
+[
+\frac{d\theta}{ds} = \frac{1}{n(h)} \frac{dn}{dh}
+]
+
+Este modelo já produz curvatura emergente sem imposição geométrica artificial.
+
+---
+
+## 7. Modelo 3 – Atmosfera em Camadas (Perfil Físico)
+
+### 7.1 Discretização Vertical
+
+A atmosfera é dividida em camadas horizontais de espessura ( \Delta h ).
+
+Cada camada ( i ) possui:
+
+* Temperatura ( T_i )
+* Pressão ( P_i )
+* Densidade ( \rho_i )
+* Índice de refração ( n_i )
+
+---
+
+### 7.2 Perfil Atmosférico Padrão
+
+Inicialmente será adotado o modelo ISA (International Standard Atmosphere), com gradiente térmico padrão na troposfera.
+
+---
+
+### 7.3 Integração Numérica
+
+Dentro de cada camada:
+
+* ( n ) é considerado aproximadamente constante
+* O raio sofre pequena deflexão
+
+A integração ocorre passo a passo, conforme definido no Motor de Traçado de Raios.
+
+---
+
+## 8. Modelo 4 – Perfis Atmosféricos com Inversão Térmica
+
+### 8.1 Inversão Térmica
+
+Uma inversão térmica ocorre quando:
+
+* ( \frac{dT}{dh} > 0 )
+
+Isso pode produzir:
+
+* Miragens inferiores
+* Miragens superiores
+
+---
+
+### 8.2 Emergência de Miragens
+
+Neste modelo:
+
+* Nenhuma regra especial é adicionada
+* A miragem emerge da curvatura do raio
+
+A presença de múltiplas interseções ou trajetórias quase horizontais indica miragem.
+
+---
+
+## 9. Parâmetros Configuráveis
+
+O simulador deverá permitir ao usuário configurar:
+
+* Modelo de refração
+* Perfil atmosférico
+* Resolução vertical
+* Método numérico
+
+---
+
+## 10. Critérios de Validação do Passo 3
+
+Os modelos serão considerados corretos se:
+
+* Reproduzirem o comportamento esperado da refração média
+* Produzirem curvaturas contínuas e estáveis
+* Gerarem miragens apenas sob condições físicas plausíveis
+* Forem compatíveis com resultados descritos na literatura científica
+
+---
+
+## 11. Papel do Passo 3 no Projeto
+
+Este passo introduz formalmente a **física atmosférica** no simulador.
+
+A partir deste ponto:
+
+* O comportamento do horizonte deixa de ser puramente geométrico
+* Fenômenos ópticos complexos tornam-se possíveis
+
+Os passos seguintes tratarão da validação avançada e da visualização científica.
+
+---
+
+**Fim do Documento – Passo 3: Modelos de Refração Atmosférica**

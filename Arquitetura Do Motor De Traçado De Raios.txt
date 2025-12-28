@@ -1,0 +1,231 @@
+# Documento – Passo 2
+
+## Arquitetura do Motor de Traçado de Raios
+
+---
+
+## 1. Objetivo do Passo 2
+
+Este documento define a **arquitetura conceitual e computacional** do motor de traçado de raios do simulador. O motor será responsável por calcular, de forma genérica e extensível, a trajetória dos raios de luz em diferentes cenários físicos.
+
+O objetivo central é criar um núcleo de cálculo que seja:
+
+* Independente do modelo geométrico (Terra curva ou plana)
+* Independente do modelo atmosférico
+* Capaz de suportar múltiplos níveis de complexidade física
+* Compatível com métodos numéricos de integração
+
+Nenhuma visualização gráfica é considerada neste passo.
+
+---
+
+## 2. Princípios de Projeto
+
+O motor de traçado de raios deverá obedecer aos seguintes princípios:
+
+* **Separação entre física e implementação**
+* **Modularidade**: novos modelos físicos não devem exigir reescrita do motor
+* **Determinismo**: mesmas condições iniciais produzem sempre os mesmos resultados
+* **Transparência científica**: cada etapa do cálculo deve ser rastreável
+
+---
+
+## 3. Representação Fundamental de um Raio
+
+### 3.1 Estado do Raio
+
+Em qualquer instante, um raio é descrito pelo seguinte conjunto de variáveis:
+
+* Posição: ( (x, z) )
+* Direção: ( \theta ) (ângulo em relação à horizontal local)
+* Comprimento de arco acumulado: ( s )
+
+Este conjunto define o **estado instantâneo do raio**.
+
+---
+
+### 3.2 Vetor Direção
+
+O vetor direção unitário é dado por:
+
+[
+\hat{d} = (\cos \theta, \sin \theta)
+]
+
+Este vetor será atualizado continuamente conforme a refração atmosférica.
+
+---
+
+## 4. Ambiente Físico (Environment)
+
+### 4.1 Conceito de Ambiente
+
+O ambiente representa tudo aquilo que influencia a propagação do raio, exceto o próprio raio.
+
+O ambiente é responsável por fornecer:
+
+* Geometria da superfície
+* Altura local
+* Índice de refração em função da posição
+* Gradiente do índice de refração
+
+---
+
+### 4.2 Interface Conceitual do Ambiente
+
+O motor de traçado interage com o ambiente exclusivamente por meio de funções abstratas:
+
+* ( h = get_height(x, z) )
+* ( n = get_refractive_index(h) )
+* ( \nabla n = get_refractive_gradient(h) )
+* ( intersects = surface_intersection(ray) )
+
+📌 Isso garante que o motor não precise conhecer os detalhes internos da Terra curva ou plana.
+
+---
+
+## 5. Modelo de Propagação do Raio
+
+### 5.1 Forma Geral da Evolução
+
+A trajetória do raio é calculada como uma **integração incremental ao longo do comprimento de arco**.
+
+Para um pequeno passo ( \Delta s ):
+
+* A posição é atualizada
+* A direção é atualizada conforme o modelo físico
+
+---
+
+### 5.2 Equações de Atualização (Forma Geral)
+
+[
+x_{i+1} = x_i + \Delta s \cos \theta_i
+]
+
+[
+z_{i+1} = z_i + \Delta s \sin \theta_i
+]
+
+[
+\theta_{i+1} = \theta_i + \Delta \theta
+]
+
+Onde ( \Delta \theta ) depende do modelo de refração selecionado.
+
+---
+
+## 6. Modelos de Evolução Angular
+
+### 6.1 Modelo 1 – Sem Refração
+
+* ( \Delta \theta = 0 )
+* O raio permanece retilíneo
+
+---
+
+### 6.2 Modelo 2 – Curvatura Média (7/6 R)
+
+* A curvatura do raio é constante
+* ( \Delta \theta = k \cdot \Delta s )
+* O valor de ( k ) é derivado do raio efetivo
+
+Este modelo serve como **baseline científico**.
+
+---
+
+### 6.3 Modelo 3 – Gradiente Contínuo Simples
+
+A variação angular é dada por:
+
+[
+\frac{d\theta}{ds} = \frac{1}{n(h)} \frac{dn}{dh}
+]
+
+Esta equação será integrada numericamente.
+
+---
+
+### 6.4 Modelo 4 – Atmosfera em Camadas
+
+* O espaço vertical é discretizado em camadas
+* Cada camada possui ( n ) aproximadamente constante
+* A variação angular é calculada localmente
+
+Métodos numéricos mais sofisticados poderão ser aplicados.
+
+---
+
+## 7. Método Numérico de Integração
+
+### 7.1 Integração Incremental
+
+O motor deverá suportar, no mínimo:
+
+* Método de Euler explícito
+
+E opcionalmente:
+
+* Runge-Kutta de 4ª ordem (RK4)
+
+A escolha do método será configurável pelo usuário.
+
+---
+
+### 7.2 Tamanho do Passo
+
+* O passo ( \Delta s ) será constante por padrão
+* Poderá ser adaptativo em versões futuras
+
+O passo deve ser pequeno o suficiente para garantir estabilidade numérica.
+
+---
+
+## 8. Critérios de Parada do Traçado
+
+O traçado de um raio deve ser interrompido quando:
+
+* O raio intersectar a superfície
+* O raio ultrapassar uma distância máxima definida
+* O raio ultrapassar um limite superior da atmosfera
+
+Esses critérios evitam loops infinitos.
+
+---
+
+## 9. Estrutura de Dados de Saída
+
+O resultado do traçado de um raio será:
+
+* Uma lista ordenada de estados:
+
+  * ( (x_i, z_i, \theta_i, s_i) )
+
+Essa estrutura permite:
+
+* Visualização posterior
+* Análise científica
+* Comparação entre modelos
+
+---
+
+## 10. Validação do Motor de Traçado
+
+O motor será considerado correto se:
+
+* Produzir trajetórias retilíneas quando a refração estiver desativada
+* Reproduzir curvaturas esperadas no modelo 7/6 R
+* Produzir trajetórias suaves e contínuas
+* Apresentar estabilidade numérica
+
+---
+
+## 11. Papel do Passo 2 no Projeto
+
+Este motor é o **núcleo computacional** do simulador. Todas as camadas superiores (atmosfera realista, miragens, visualização) dependem diretamente da robustez desta arquitetura.
+
+Uma vez validado, o motor **não deverá ser modificado**, apenas estendido por novos modelos físicos.
+
+---
+
+**Fim do Documento – Passo 2: Arquitetura do Motor de Traçado de Raios**

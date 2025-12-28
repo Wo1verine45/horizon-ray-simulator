@@ -1,0 +1,204 @@
+# Passo 5 – Estratégia de Validação Científica e Cenários de Teste
+
+## 1. Objetivo do Documento
+
+Este documento define a **estratégia de validação científica** do simulador, estabelecendo **cenários de teste reprodutíveis**, métricas quantitativas e métodos de comparação entre:
+
+* Diferentes modelos de refração
+* Terra curva vs. Terra plana
+* Resultados numéricos vs. referências teóricas
+
+O objetivo é garantir que o motor produza resultados **fisicamente coerentes, verificáveis e comparáveis**, antes de qualquer foco em visualização ou interface.
+
+---
+
+## 2. Princípios de Validação
+
+A validação seguirá três níveis complementares:
+
+1. **Validação matemática interna**
+   Consistência numérica e geométrica
+
+2. **Validação física**
+   Conformidade com leis ópticas conhecidas
+
+3. **Validação observacional**
+   Comparação com fenômenos documentados
+
+Nenhum resultado será considerado válido apenas por "parecer correto" visualmente.
+
+---
+
+## 3. Métricas Fundamentais
+
+O motor deverá produzir, para cada cenário:
+
+* Distância máxima visível (d_max)
+* Ângulo aparente de chegada (θ)
+* Número de trajetórias válidas por objeto
+* Pontos de inflexão dos raios
+* Curvatura média e local
+* Erro numérico acumulado
+
+Essas métricas permitem comparação direta entre modelos.
+
+---
+
+## 4. Cenários de Teste – Casos Base
+
+### 4.1 Vácuo (Sem Refração)
+
+Objetivo:
+
+* Validar exclusivamente a geometria
+
+Configuração:
+
+* n = 1 constante
+* Terra curva
+
+Resultados esperados:
+
+* Horizonte puramente geométrico
+* Nenhuma visibilidade além do limite geométrico
+
+### 4.2 Refração Padrão (Atmosfera ISA)
+
+Objetivo:
+
+* Validar refração média
+
+Configuração:
+
+* Perfil n(z) padrão
+* Gradiente suave
+
+Resultados esperados:
+
+* Horizonte óptico ligeiramente além do geométrico
+* Elevação aparente do horizonte
+
+---
+
+## 5. Cenários com Inversão Térmica
+
+### 5.1 Inversão Fraca
+
+Objetivo:
+
+* Validar início de miragens
+
+Resultados esperados:
+
+* Curvatura variável
+* Distorções verticais leves
+
+### 5.2 Inversão Forte
+
+Objetivo:
+
+* Detectar miragens superiores/inferiores
+
+Resultados esperados:
+
+* Múltiplas imagens
+* Visibilidade de objetos ocultos geometricamente
+
+---
+
+## 6. Cenários Extremos e Limites
+
+### 6.1 Raios Críticos
+
+Objetivo:
+
+* Testar estabilidade numérica
+
+Configuração:
+
+* Ângulos iniciais quase horizontais
+
+Resultados esperados:
+
+* Raios de longo alcance
+* Possível aprisionamento atmosférico
+
+### 6.2 Atmosfera Irreal (Stress Test)
+
+Objetivo:
+
+* Avaliar robustez
+
+Configuração:
+
+* Gradientes exagerados
+
+Resultados esperados:
+
+* Detecção correta de falhas físicas
+* Estabilidade do integrador
+
+---
+
+## 7. Comparação Terra Curva vs. Terra Plana
+
+Cada cenário deve ser executado em ambos os modelos:
+
+Métricas de comparação:
+
+* Distância visível
+* Ângulo aparente
+* Número de imagens
+
+Objetivo:
+
+* Identificar dependência geométrica dos fenômenos
+
+---
+
+## 8. Comparação com Literatura
+
+Sempre que possível, os resultados devem ser comparados com:
+
+* Fórmulas analíticas conhecidas
+* Simulações publicadas
+* Relatos observacionais documentados
+
+Diferenças devem ser quantificadas, não apenas descritas.
+
+---
+
+## 9. Critérios de Aceitação
+
+Um modelo será considerado validado quando:
+
+* Erros numéricos estejam dentro de limites aceitáveis
+* Fenômenos emergirem apenas sob condições fisicamente plausíveis
+* Resultados sejam consistentes entre execuções
+
+---
+
+## 10. Registro e Reprodutibilidade
+
+Cada simulação deve registrar:
+
+* Parâmetros completos
+* Versão do modelo
+* Passo de integração
+* Semente numérica (se aplicável)
+
+Objetivo:
+
+* Garantir reprodutibilidade científica
+
+---
+
+## 11. Resultado Esperado do Passo 5
+
+Ao final deste passo, o projeto terá:
+
+* Um conjunto definido de testes científicos
+* Critérios claros de validação
+* Base sólida para iniciar a implementação
+
+Este documento encerra a **fase conceitual** e prepara diretamente a **fase de programação** do simulador.

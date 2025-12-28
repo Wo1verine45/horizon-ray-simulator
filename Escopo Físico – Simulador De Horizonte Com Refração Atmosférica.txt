@@ -1,0 +1,196 @@
+# Documento de Escopo Físico
+
+## Simulador de Horizonte com Curvatura da Terra e Refração Atmosférica
+
+---
+
+## 1. Objetivo do Projeto
+
+O objetivo deste projeto é desenvolver um simulador físico-computacional que represente, com alto grau de fidelidade científica, o que um observador enxergaria ao olhar em direção ao horizonte, considerando:
+
+* A **geometria da Terra** (curva ou plana)
+* A **propagação da luz** por óptica geométrica
+* A **refração atmosférica**, modelada a partir de perfis físicos reais da atmosfera
+
+O simulador deverá permitir ao usuário selecionar **diferentes níveis de complexidade do modelo**, desde aproximações simples até modelos avançados compatíveis com literatura científica, possibilitando comparações diretas entre cenários.
+
+---
+
+## 2. Escopo Físico Geral
+
+### 2.1 Dimensionalidade
+
+* O modelo será **bidimensional (2D)**, representando um **corte vertical** da Terra e da atmosfera.
+* As grandezas espaciais consideradas são:
+
+  * Distância horizontal (x)
+  * Altura vertical (z)
+
+Não serão considerados, nesta fase, efeitos tridimensionais como paralaxe lateral ou curvatura em azimute.
+
+---
+
+### 2.2 Natureza da Luz
+
+A propagação da luz será tratada sob o regime de **óptica geométrica**, com as seguintes premissas:
+
+* A luz é representada por **raios**
+* Não há difração
+* Não há interferência
+* Não há espalhamento atmosférico
+* Não há absorção
+
+Cada raio é descrito por sua posição e direção instantâneas, evoluindo continuamente ao longo do espaço.
+
+---
+
+## 3. Modelos de Geometria da Terra
+
+O simulador deverá suportar, de forma intercambiável, os seguintes modelos geométricos:
+
+### 3.1 Terra Esférica
+
+* A Terra é modelada como uma esfera perfeita
+* Raio médio padrão:
+
+  * R = 6.371.000 m
+* A superfície é definida como um arco de circunferência
+* A vertical local é radial em relação ao centro da Terra
+
+### 3.2 Terra Plana
+
+* A Terra é modelada como um plano infinito
+* A vertical é globalmente paralela
+* Não há curvatura geométrica da superfície
+
+📌 Importante: **o modelo atmosférico será o mesmo para ambos os casos**, permitindo comparações científicas diretas.
+
+---
+
+## 4. Observador
+
+O observador será definido pelos seguintes parâmetros:
+
+* Altura acima da superfície (h_obs)
+* Posição horizontal de referência (x = 0)
+* Olhar direcionado ao plano do corte vertical
+
+O observador é considerado pontual e não possui campo de visão angular neste estágio (os raios serão emitidos individualmente).
+
+---
+
+## 5. Atmosfera
+
+### 5.1 Premissas Gerais
+
+* A atmosfera é **estática** (sem ventos)
+* Estratificada verticalmente
+* Todas as propriedades atmosféricas variam **exclusivamente com a altura**
+* Não há variação temporal
+
+---
+
+### 5.2 Propriedades Atmosféricas
+
+Em modelos avançados, cada camada atmosférica poderá possuir:
+
+* Temperatura (T)
+* Pressão (P)
+* Densidade (ρ)
+* Índice de refração (n)
+
+O índice de refração será calculado a partir de modelos físicos aceitos, dependente da densidade do ar.
+
+---
+
+### 5.3 Perfis Atmosféricos Suportados
+
+O simulador deverá suportar múltiplos perfis, incluindo:
+
+* Atmosfera padrão (ISA)
+* Gradiente térmico linear
+* Perfis personalizados definidos pelo usuário
+* Perfis com **inversão térmica**
+
+Esses perfis permitirão a emergência natural de fenômenos ópticos como miragens.
+
+---
+
+## 6. Refração Atmosférica
+
+### 6.1 Princípio Físico
+
+A refração será tratada como consequência da variação contínua do índice de refração com a altura, obedecendo:
+
+* À forma contínua da Lei de Snell
+* À curvatura progressiva dos raios em meios não homogêneos
+
+Não serão utilizados desvios artificiais ou ajustes empíricos forçados.
+
+---
+
+### 6.2 Níveis de Complexidade do Modelo
+
+O simulador deverá oferecer, no mínimo, os seguintes níveis:
+
+1. **Sem refração** (raios retilíneos)
+2. **Refração média** (modelo equivalente a R efetivo = 7/6 R)
+3. **Gradiente contínuo simples** (n variando linearmente com a altura)
+4. **Atmosfera em camadas discretas**, com integração numérica do trajeto do raio
+
+---
+
+## 7. Fenômenos Ópticos de Interesse
+
+O simulador deverá ser capaz de reproduzir, quando as condições físicas forem satisfeitas:
+
+* Elevação aparente do horizonte
+* Aumento da distância visível
+* Ocultação parcial ou reaparecimento de objetos
+* **Miragens inferiores**
+* **Miragens superiores**
+
+📌 Esses fenômenos devem emergir **naturalmente do modelo físico**, sem regras condicionais específicas.
+
+---
+
+## 8. Limitações Deliberadas (Fora do Escopo Inicial)
+
+Explicitamente fora do escopo desta fase:
+
+* Espalhamento Rayleigh ou Mie
+* Dependência com comprimento de onda
+* Cor do céu
+* Brilho, contraste ou luminância
+* Curvatura lateral (3D)
+* Efeitos meteorológicos dinâmicos
+
+Esses aspectos poderão ser considerados em fases futuras.
+
+---
+
+## 9. Critérios de Validação Científica
+
+O simulador será considerado fisicamente consistente se:
+
+* Reproduzir resultados clássicos da literatura (ex.: modelo 7/6 R)
+* Produzir trajetórias de raios contínuas e estáveis
+* Apresentar miragens apenas sob condições atmosféricas compatíveis
+* Permitir comparação honesta entre Terra curva e Terra plana sob os mesmos parâmetros
+
+---
+
+## 10. Filosofia do Projeto
+
+Este projeto prioriza:
+
+* Fidelidade física
+* Transparência científica
+* Modularidade
+* Reprodutibilidade
+
+O simulador não tem como objetivo provar ou refutar hipóteses externas, mas sim **modelar corretamente a física envolvida** e permitir que o comportamento emergente seja observado e analisado.
+
+---
+
+**Fim do Documento de Escopo Físico – Passo 0**

@@ -1,0 +1,264 @@
+# Documento – Passo 1
+
+## Modelo Geométrico e Sistema de Coordenadas
+
+---
+
+## 1. Objetivo do Passo 1
+
+Este documento define formalmente o **modelo geométrico** e o **sistema de coordenadas** utilizados pelo simulador, servindo como base matemática para todas as etapas posteriores, incluindo traçado de raios, refração atmosférica e visualização.
+
+O objetivo é garantir:
+
+* Consistência matemática entre os modelos de Terra curva e Terra plana
+* Compatibilidade direta com métodos numéricos de integração de trajetórias
+* Clareza na definição de ângulos, alturas e distâncias
+
+Nenhum efeito atmosférico ou refração é considerado neste passo.
+
+---
+
+## 2. Sistema de Coordenadas Global
+
+### 2.1 Tipo de Sistema
+
+Será utilizado um **sistema de coordenadas cartesianas bidimensional (x, z)**, onde:
+
+* **x**: distância horizontal ao longo da superfície
+* **z**: altura vertical
+
+O sistema é definido em um **plano de corte vertical** que contém o observador e o horizonte.
+
+---
+
+### 2.2 Unidades
+
+* Todas as grandezas espaciais serão expressas em **metros (m)**
+* Ângulos serão expressos em **radianos** internamente
+* Conversões para graus ocorrerão apenas na interface de usuário
+
+---
+
+## 3. Modelo Geométrico – Terra Plana
+
+### 3.1 Definição da Superfície
+
+* A superfície da Terra plana é representada pela reta:
+
+[
+z = 0
+]
+
+* O plano se estende indefinidamente ao longo do eixo x
+
+---
+
+### 3.2 Vertical e Horizonte
+
+* A vertical é globalmente paralela ao eixo z
+* A normal à superfície é constante
+* O horizonte geométrico, neste modelo, é infinito (não há ocultação geométrica)
+
+---
+
+### 3.3 Altura
+
+A altura de qualquer ponto é definida diretamente como:
+
+[
+h = z
+]
+
+---
+
+## 4. Modelo Geométrico – Terra Esférica
+
+### 4.1 Definição da Esfera
+
+* A Terra é modelada como uma esfera perfeita de raio constante:
+
+[
+R = 6.371.000;m
+]
+
+* O centro da Terra é fixado no ponto:
+
+[
+(x_c, z_c) = (0, -R)
+]
+
+---
+
+### 4.2 Superfície da Terra
+
+A superfície é definida pelo conjunto de pontos que satisfazem:
+
+[
+x^2 + (z + R)^2 = R^2
+]
+
+Este posicionamento garante que:
+
+* O ponto (0, 0) esteja na superfície
+* O eixo z seja localmente vertical no observador
+
+---
+
+### 4.3 Altura Geométrica
+
+A altura de um ponto acima da superfície é definida como:
+
+[
+h = \sqrt{x^2 + (z + R)^2} - R
+]
+
+---
+
+### 4.4 Vertical Local
+
+A vertical local em um ponto da superfície é definida pelo vetor radial:
+
+[
+\vec{v} = \frac{(x, z + R)}{\sqrt{x^2 + (z + R)^2}}
+]
+
+---
+
+## 5. Observador
+
+### 5.1 Posição do Observador
+
+O observador é definido por:
+
+* Posição horizontal: ( x = 0 )
+* Altura acima da superfície: ( h_{obs} )
+
+Na Terra plana:
+[
+z_{obs} = h_{obs}
+]
+
+Na Terra esférica:
+[
+z_{obs} = h_{obs}
+]
+
+(considerando o sistema local definido na Seção 4)
+
+---
+
+### 5.2 Referencial Angular do Observador
+
+O ângulo de emissão de um raio ( \theta ) é definido como:
+
+* ( \theta = 0 ): direção tangente local à superfície
+* ( \theta > 0 ): acima do horizonte
+* ( \theta < 0 ): abaixo do horizonte
+
+No modelo esférico, o ângulo é sempre definido **em relação à horizontal local do observador**.
+
+---
+
+## 6. Representação dos Raios de Luz (Sem Refração)
+
+### 6.1 Definição de um Raio
+
+Um raio de luz é definido por:
+
+* Posição inicial: ( (x_0, z_0) )
+* Direção inicial: ( \theta_0 )
+
+O vetor direção unitário é dado por:
+
+[
+\hat{d} = (\cos \theta_0, \sin \theta_0)
+]
+
+---
+
+### 6.2 Equação Paramétrica do Raio
+
+A trajetória do raio, na ausência de refração, é dada por:
+
+[
+x(s) = x_0 + s \cos \theta_0
+]
+[
+z(s) = z_0 + s \sin \theta_0
+]
+
+onde ( s ) é o parâmetro de comprimento de arco.
+
+---
+
+## 7. Interseção com a Superfície
+
+### 7.1 Terra Plana
+
+A interseção ocorre quando:
+
+[
+z(s) = 0
+]
+
+---
+
+### 7.2 Terra Esférica
+
+A interseção ocorre quando:
+
+[
+x(s)^2 + (z(s) + R)^2 = R^2
+]
+
+A menor solução positiva de ( s ) define o ponto de impacto do raio com a superfície.
+
+---
+
+## 8. Horizonte Geométrico
+
+### 8.1 Definição
+
+O horizonte geométrico é definido como o limite entre raios que:
+
+* Intersectam a superfície
+* Não intersectam a superfície
+
+---
+
+### 8.2 Condição de Tangência (Terra Esférica)
+
+O horizonte ocorre quando o raio é tangente à esfera:
+
+[
+\vec{r} \cdot \hat{d} = 0
+]
+
+no ponto de tangência.
+
+---
+
+## 9. Critérios de Validação do Passo 1
+
+O Passo 1 será considerado concluído quando:
+
+* O sistema de coordenadas for único e consistente
+* O observador estiver corretamente definido em ambos os modelos
+* Raios retilíneos se comportarem conforme a geometria esperada
+* O horizonte geométrico for corretamente identificado
+
+---
+
+## 10. Papel do Passo 1 no Projeto
+
+Este documento estabelece a base matemática sobre a qual:
+
+* A refração atmosférica será aplicada
+* Métodos numéricos de integração atuarão
+* Fenômenos ópticos emergirão naturalmente
+
+Nenhuma modificação futura deverá violar as definições aqui estabelecidas.
+
+---
+
+**Fim do Documento – Passo 1: Modelo Geométrico e Sistema de Coordenadas**

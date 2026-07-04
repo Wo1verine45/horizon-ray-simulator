@@ -81,10 +81,10 @@ h = z
 R = 6.371.000;m
 ]
 
-* O centro da Terra é fixado no ponto:
+* O centro da Terra é fixado na origem do sistema de coordenadas:
 
 [
-(x_c, z_c) = (0, -R)
+(x_c, z_c) = (0, 0)
 ]
 
 ---
@@ -94,12 +94,12 @@ R = 6.371.000;m
 A superfície é definida pelo conjunto de pontos que satisfazem:
 
 [
-x^2 + (z + R)^2 = R^2
+x^2 + z^2 = R^2
 ]
 
 Este posicionamento garante que:
 
-* O ponto (0, 0) esteja na superfície
+* O ponto (0, R) esteja na superfície, logo abaixo do observador
 * O eixo z seja localmente vertical no observador
 
 ---
@@ -109,7 +109,7 @@ Este posicionamento garante que:
 A altura de um ponto acima da superfície é definida como:
 
 [
-h = \sqrt{x^2 + (z + R)^2} - R
+h = \sqrt{x^2 + z^2} - R
 ]
 
 ---
@@ -119,7 +119,7 @@ h = \sqrt{x^2 + (z + R)^2} - R
 A vertical local em um ponto da superfície é definida pelo vetor radial:
 
 [
-\vec{v} = \frac{(x, z + R)}{\sqrt{x^2 + (z + R)^2}}
+\vec{v} = \frac{(x, z)}{\sqrt{x^2 + z^2}}
 ]
 
 ---
@@ -140,10 +140,10 @@ z_{obs} = h_{obs}
 
 Na Terra esférica:
 [
-z_{obs} = h_{obs}
+z_{obs} = R + h_{obs}
 ]
 
-(considerando o sistema local definido na Seção 4)
+(considerando o sistema definido na Seção 4, com o centro da Terra na origem)
 
 ---
 
@@ -362,7 +362,7 @@ z(s) = 0
 A interseção ocorre quando:
 
 [
-x(s)^2 + (z(s) + R)^2 = R^2
+x(s)^2 + z(s)^2 = R^2
 ]
 
 A menor solução positiva de ( s ) define o ponto de impacto do raio com a superfície.

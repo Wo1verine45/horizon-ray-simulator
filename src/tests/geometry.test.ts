@@ -78,4 +78,26 @@ describe("Horizonte geométrico — Terra curva vs. plana", () => {
     expect(hitCurved).toBeNull();    // curvo não cruza
   });
 
+  test("surfaceHeightAt da Terra curva usa o mesmo referencial de intersectRay/horizonDistance", () => {
+    const R = 6371000;
+    const earth = new EarthModel(R);
+
+    // Em x = 0, o "chão" logo abaixo do observador deve estar em z = R,
+    // o mesmo referencial em que o observador é colocado em z = R + h_obs.
+    expect(earth.surfaceHeightAt(0)).toBeCloseTo(R, 6);
+
+    // Para x != 0, a superfície se afasta do topo da esfera (curvatura),
+    // então a altura deve ser um pouco menor que R.
+    const h = earth.surfaceHeightAt(5000);
+    expect(h).toBeLessThan(R);
+    expect(R - h).toBeCloseTo((5000 * 5000) / (2 * R), 3); // aproximação de queda por curvatura
+  });
+
+  test("surfaceHeightAt da Terra plana é sempre zero", () => {
+    const flat = new FlatModel();
+
+    expect(flat.surfaceHeightAt(0)).toBe(0);
+    expect(flat.surfaceHeightAt(10000)).toBe(0);
+  });
+
 });

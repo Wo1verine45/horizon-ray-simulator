@@ -9,11 +9,12 @@ export class EarthModel implements GeometryModel {
   }
 
   surfaceHeightAt(x: number): number {
-    // X² + Z² = R² -> Considerando centro da circunferência na origem (0, 0) = (X - 0)² + (Z - 0)² = R²
+    // X² + Z² = R² -> Considerando centro da circunferência na origem (0, 0)
     // X e Z são um ponto na superfície
-    // Superfície curva aproximada localmente
-    // z = R - sqrt(R^2 - x^2) TODO: Não entendi ainda o porque do R -
-    return this.radius - Math.sqrt(this.radius * this.radius - x * x);
+    // Mesmo referencial usado por intersectRay/horizonDistance: o observador
+    // fica em z = R + h_obs, então o "chão" logo abaixo dele está em z = R.
+    // Isolando z na equação do círculo: z = sqrt(R² - x²)
+    return Math.sqrt(this.radius * this.radius - x * x);
   }
 
   /**

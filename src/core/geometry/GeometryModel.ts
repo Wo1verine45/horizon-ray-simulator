@@ -122,7 +122,10 @@ export interface GeometryModel {
    *
    * Terra curva:
    *
-   *   z = R - sqrt(R² - x²)
+   *   z = sqrt(R² - x²)
+   *
+   * (referencial com o centro da Terra na origem (0,0); o observador
+   * fica em z = R + h_obs, logo o "chão" abaixo dele está em z = R)
    *
    * Interpretação:
    *

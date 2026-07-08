@@ -283,5 +283,3 @@ export class FlatModel implements GeometryModel {
     return s;
   }
 }
-
-//ÚLTIMO TODO: Continuar fazendo esses comentários para os arquivos

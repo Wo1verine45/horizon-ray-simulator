@@ -52,6 +52,17 @@
  *   o resultado numérico de `intersectRay`.
  *
  * ============================================================================
+ * DIAGRAMAS
+ * ============================================================================
+ *
+ * Ver `docs/diagrams/EarthModel-modelo.svg` (símbolos) e
+ * `docs/diagrams/EarthModel-exemplo.svg` (valores reais) para a distinção
+ * visual entre "queda por curvatura" (`surfaceHeightAt`, medida a partir do
+ * plano tangente em x = 0) e "altura escondida pelo horizonte" (medida a
+ * partir da linha de visada tangente em `horizonDistance`) — são conceitos
+ * relacionados, mas não idênticos; ver a nota de `surfaceHeightAt` abaixo.
+ *
+ * ============================================================================
  */
 
 import type { Point2D, Vector2D } from "./Coordinates.js";

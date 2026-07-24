@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1450" font-family="Arial, Helvetica, sans-serif">
+  <rect x="0" y="0" width="1300" height="1450" fill="#ffffff"/>
+
+  <!-- Título e nota de escala -->
+  <text x="650" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#1a1a1a">
+    Queda por curvatura vs. altura escondida pelo horizonte — modelo
+  </text>
+  <text x="650" y="66" text-anchor="middle" font-size="15" font-style="italic" fill="#666666">
+    Curvatura exagerada para fins didáticos — a Terra real não está representada em escala.
+  </text>
+
+  <!-- Superfície da Terra (círculo de raio R centrado em C) -->
+  <circle cx="500" cy="620" r="400" fill="none" stroke="#333333" stroke-width="2.5"/>
+
+  <!-- Raio C-A -->
+  <line x1="500" y1="620" x2="500" y2="220" stroke="#999999" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <text x="512" y="420" font-size="15" fill="#555555">R</text>
+
+  <!-- Raio C-H -->
+  <line x1="500" y1="620" x2="710" y2="279.6" stroke="#999999" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <text x="560" y="455" font-size="15" fill="#555555">R</text>
+
+  <!-- Marcador de ângulo reto entre C-H e a linha de visada, em H -->
+  <polyline points="702.65,291.51 690.74,284.16 698.09,272.25" fill="none" stroke="#555555" stroke-width="1.5"/>
+
+  <!-- Raio C-S estendido: é ao longo desta direção (perpendicular à superfície local em S,
+       ou seja, radial a partir do centro C) que o objeto está de pé -->
+  <line x1="500" y1="620" x2="968.6" y2="418.7" stroke="#bbbbbb" stroke-width="1.5" stroke-dasharray="3,4"/>
+
+  <!-- Plano tangente em x = 0 (referência da sagita) -->
+  <line x1="500" y1="220" x2="1000" y2="220" stroke="#999999" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <text x="900" y="210" font-size="15" fill="#555555">plano tangente em x = 0 (referência da sagita)</text>
+
+  <!-- Linha de visada: do olho do observador (O), tangente à esfera em H, estendida
+       até um pouco além de onde cruza a direção radial do objeto (ver T logo abaixo) -->
+  <line x1="500" y1="150" x2="962" y2="435.1" stroke="#2980b9" stroke-width="2.5"/>
+  <text x="640" y="205" font-size="15" fill="#2980b9" font-weight="bold">linha de visada (raio reto)</text>
+
+  <!-- Segmento vertical h_obs entre A (superfície em x=0) e O (olho do observador) -->
+  <line x1="488" y1="220" x2="488" y2="150" stroke="#555555" stroke-width="1.5"/>
+  <text x="300" y="190" font-size="15" fill="#555555">h_obs (altura dos olhos)</text>
+
+  <!-- Pontos notáveis -->
+  <circle cx="500" cy="620" r="4" fill="#1a1a1a"/>
+  <text x="510" y="616" font-size="14" fill="#1a1a1a">C (centro da Terra)</text>
+
+  <circle cx="500" cy="220" r="4" fill="#1a1a1a"/>
+  <text x="455" y="242" font-size="14" fill="#1a1a1a">x = 0</text>
+
+  <circle cx="500" cy="150" r="4" fill="#1a1a1a"/>
+  <text x="330" y="140" font-size="14" font-weight="bold" fill="#1a1a1a">observador (olho)</text>
+
+  <circle cx="710" cy="279.6" r="4" fill="#1a1a1a"/>
+  <text x="720" y="300" font-size="14" font-weight="bold" fill="#1a1a1a">H (horizonte)</text>
+
+  <circle cx="867.5" cy="462.1" r="4" fill="#1a1a1a"/>
+  <text x="770" y="482" font-size="14" fill="#1a1a1a">S (superfície em x)</text>
+
+  <!-- Objeto no ponto x: de pé na direção radial (perpendicular à superfície local em S,
+       não na vertical da tela). Parte escondida = de S até onde essa direção radial
+       cruza a linha de visada; parte visível = daí até o topo do objeto. -->
+  <line x1="867.5" y1="462.1" x2="949.0" y2="427.1" stroke="#c0392b" stroke-width="7" stroke-linecap="round"/>
+  <line x1="949.0" y1="427.1" x2="968.6" y2="418.7" stroke="#27ae60" stroke-width="7" stroke-linecap="round"/>
+  <line x1="968.6" y1="418.7" x2="840" y2="405" stroke="#333333" stroke-width="1"/>
+  <text x="740" y="400" font-size="14" fill="#1a1a1a">objeto (h_obj)</text>
+  <text x="705" y="418" font-size="12.5" fill="#666666" font-style="italic">(de pé na direção radial)</text>
+
+  <!-- Cota: queda por curvatura, relativa ao plano tangente em x = 0 (vertical, em x fixo) -->
+  <line x1="995" y1="220" x2="1005" y2="220" stroke="#8e44ad" stroke-width="1.5"/>
+  <line x1="1000" y1="220" x2="1000" y2="462.1" stroke="#8e44ad" stroke-width="1.5"/>
+  <line x1="995" y1="462.1" x2="1005" y2="462.1" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="1020" y="300" font-size="14" fill="#8e44ad">queda por curvatura</text>
+  <text x="1020" y="322" font-size="14" fill="#8e44ad">≈ x² / (2R)</text>
+  <text x="1020" y="344" font-size="13" fill="#8e44ad" font-style="italic">(a partir de x = 0)</text>
+
+  <!-- Callout: altura escondida, medida ao longo do próprio objeto (S até o cruzamento com a linha de visada) -->
+  <line x1="908.25" y1="444.6" x2="1000" y2="560" stroke="#c0392b" stroke-width="1"/>
+  <text x="1010" y="555" font-size="14" fill="#c0392b">altura escondida</text>
+  <text x="1010" y="577" font-size="14" fill="#c0392b">≈ (x − d_obs)² / (2R)</text>
+  <text x="1010" y="599" font-size="13" fill="#c0392b" font-style="italic">(medida ao longo do objeto)</text>
+
+  <!-- Eixo horizontal de distâncias (abaixo de toda a figura, sem sobrepor a legenda) -->
+  <line x1="500" y1="1020" x2="500" y2="1070" stroke="#bbbbbb" stroke-width="1" stroke-dasharray="3,4"/>
+  <line x1="710" y1="279.6" x2="710" y2="1070" stroke="#bbbbbb" stroke-width="1" stroke-dasharray="3,4"/>
+  <line x1="867.5" y1="462.1" x2="867.5" y2="1070" stroke="#bbbbbb" stroke-width="1" stroke-dasharray="3,4"/>
+  <line x1="450" y1="1070" x2="950" y2="1070" stroke="#333333" stroke-width="1.5"/>
+  <line x1="500" y1="1064" x2="500" y2="1076" stroke="#333333" stroke-width="1.5"/>
+  <line x1="710" y1="1064" x2="710" y2="1076" stroke="#333333" stroke-width="1.5"/>
+  <line x1="867.5" y1="1064" x2="867.5" y2="1076" stroke="#333333" stroke-width="1.5"/>
+  <text x="500" y="1094" text-anchor="middle" font-size="14" fill="#1a1a1a">x = 0</text>
+  <text x="710" y="1094" text-anchor="middle" font-size="14" fill="#1a1a1a">d_obs</text>
+  <text x="867.5" y="1094" text-anchor="middle" font-size="14" fill="#1a1a1a">x</text>
+  <text x="700" y="1116" text-anchor="middle" font-size="14" font-style="italic" fill="#555555">distância horizontal</text>
+
+  <!-- Legenda (abaixo do eixo, largura cheia, sem sobrepor nenhum outro elemento) -->
+  <rect x="40" y="1140" width="1220" height="280" fill="#f7f7f7" stroke="#cccccc" stroke-width="1"/>
+  <text x="56" y="1165" font-size="15" font-weight="bold" fill="#1a1a1a">Legenda</text>
+  <text x="56" y="1188" font-size="13.5" fill="#1a1a1a">R — raio da Terra</text>
+  <text x="56" y="1209" font-size="13.5" fill="#1a1a1a">h_obs — altura dos olhos do observador acima da superfície</text>
+  <text x="56" y="1230" font-size="13.5" fill="#1a1a1a">d_obs — distância do horizonte do observador ≈ √(2·R·h_obs)</text>
+  <text x="56" y="1251" font-size="13.5" fill="#1a1a1a">x — distância horizontal do observador até o objeto</text>
+  <text x="56" y="1272" font-size="13.5" fill="#1a1a1a">h_obj — altura do objeto observado; d_obj — distância de horizonte do próprio objeto ≈ √(2·R·h_obj)</text>
+  <text x="56" y="1293" font-size="13.5" fill="#1a1a1a">Objeto desenhado perpendicular à superfície local (direção radial a partir de C) — não na vertical da tela.</text>
+  <rect x="56" y="1304" width="14" height="14" fill="#c0392b"/>
+  <text x="76" y="1315" font-size="13.5" fill="#1a1a1a">escondido (abaixo da linha de visada)</text>
+  <rect x="56" y="1325" width="14" height="14" fill="#27ae60"/>
+  <text x="76" y="1336" font-size="13.5" fill="#1a1a1a">visível (acima da linha de visada)</text>
+  <text x="56" y="1359" font-size="13.5" font-weight="bold" fill="#1a1a1a">Objeto 100% visível (a partir da base) quando x ≤ d_obs + d_obj.</text>
+  <text x="56" y="1381" font-size="12.5" fill="#666666" font-style="italic">Queda por curvatura ≠ altura escondida — compare com o diagrama de exemplo numérico.</text>
+</svg>
